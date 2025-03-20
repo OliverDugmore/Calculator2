@@ -1,5 +1,5 @@
 <html>
-<head></head>
+<head>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,7 +10,6 @@
             background-color: #f2f2f2;
             margin: 0;
         }
-
         .calculator {
             width: 300px;
             background-color: #fff;
@@ -18,7 +17,6 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-
         .display {
             width: 100%;
             height: 50px;
@@ -31,13 +29,11 @@
             border-radius: 8px;
             color: #333;
         }
-
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
         }
-
         .button {
             background-color: #03a9f4;
             border: none;
@@ -48,40 +44,33 @@
             transition: background-color 0.3s, transform 0.2s;
             color: white;
         }
-
         .button:hover {
             background-color: #0288d1;
             transform: scale(1.1);
         }
-
         .button:active {
             transform: scale(0.95);
         }
-
         .button.clear {
             background-color: #ff5722;
         }
-
         .button.clear:hover {
             background-color: #e64a19;
         }
-
         .button.equal {
             background-color: #8bc34a;
         }
-
         .button.equal:hover {
             background-color: #689f38;
         }
-
         .button.operator {
             background-color: #ff9800;
         }
-
         .button.operator:hover {
             background-color: #f57c00;
         }
     </style>
+</head>
 <body>
     <div class="calculator">
         <input type="text" id="display" class="display" disabled>
@@ -107,5 +96,67 @@
             <button class="button" onclick="appendNumber('0')">0</button>
         </div>
     </div>
+
+    <script>
+        let currentInput = '';
+        let currentOperation = '';
+        let previousInput = '';
+
+        function appendNumber(number) {
+            currentInput += number;
+            document.getElementById('display').value = `${previousInput} ${currentOperation} ${currentInput}`;
+        }
+
+        function appendOperation(operation) {
+            if (currentInput === '') return;
+            if (previousInput !== '') {
+                calculate(); // Calculate the previous operation before appending a new one
+            }
+            currentOperation = operation;
+            previousInput = currentInput;
+            currentInput = '';
+            document.getElementById('display').value = `${previousInput} ${currentOperation}`;
+        }
+
+        function calculate() {
+            if (previousInput === '' || currentInput === '') return;
+            let result;
+            let prev = parseFloat(previousInput);
+            let current = parseFloat(currentInput);
+
+            switch (currentOperation) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    if (current === 0) {
+                        alert("Cannot divide by zero");
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            currentOperation = '';
+            previousInput = '';
+            document.getElementById('display').value = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            previousInput = '';
+            currentOperation = '';
+            document.getElementById('display').value = '';
+        }
+    </script>
 </body>
 </html>
