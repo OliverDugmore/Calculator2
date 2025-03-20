@@ -1,75 +1,111 @@
-<!DOCTYPE html> 
-<html> 
-  
-<head> 
-    <title>HTML Calculator</title> 
-  
-    <!-- For styling -->
-    <style> 
-        table { 
-            border: 1px solid black; 
-            margin-left: auto; 
-            margin-right: auto; 
-        } 
-          
-        input[type="button"] { 
-            width: 100%; 
-            padding: 20px 40px; 
-            background-color: green; 
-            color: white; 
-            font-size: 24px; 
-            font-weight: bold; 
-            border: none; 
-            border-radius: 5px; 
-        } 
-          
-        input[type="text"] { 
-            padding: 20px 30px; 
-            font-size: 24px; 
-            font-weight: bold; 
-            border: none; 
-            border-radius: 5px; 
-            border: 2px solid black; 
-        } 
-    </style> 
-</head> 
-  
-<body> 
-  
-    <!-- Create table -->
-    <table id="calcu"> 
-        <tr> 
-            <td colspan="3"> 
-                <input type="text" id="result"> 
-            </td> 
-            <td><input type="button" value="c"></td> 
-        </tr> 
-  
-        <tr> 
-            <td><input type="button" value="1"></td> 
-            <td><input type="button" value="2"></td> 
-            <td><input type="button" value="3"></td> 
-            <td><input type="button" value="/"></td> 
-        </tr> 
-        <tr> 
-            <td><input type="button" value="4"></td> 
-            <td><input type="button" value="5"></td> 
-            <td><input type="button" value="6"></td> 
-            <td><input type="button" value="*"></td> 
-        </tr> 
-        <tr> 
-            <td><input type="button" value="7"></td> 
-            <td><input type="button" value="8"></td> 
-            <td><input type="button" value="9"></td> 
-            <td><input type="button" value="-"></td> 
-        </tr> 
-        <tr> 
-            <td><input type="button" value="0"></td> 
-            <td><input type="button" value="."></td> 
-            <td><input type="button" value="="></td> 
-            <td><input type="button" value="+"></td> 
-        </tr> 
-    </table> 
-</body> 
-  
-</html>  
+<html>
+<head></head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            margin: 0;
+        }
+
+        .calculator {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .display {
+            width: 100%;
+            height: 50px;
+            text-align: right;
+            font-size: 1.5rem;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            background-color: #ffeb3b;
+            border-radius: 8px;
+            color: #333;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #03a9f4;
+            border: none;
+            font-size: 1.5rem;
+            padding: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+            color: white;
+        }
+
+        .button:hover {
+            background-color: #0288d1;
+            transform: scale(1.1);
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .button.clear {
+            background-color: #ff5722;
+        }
+
+        .button.clear:hover {
+            background-color: #e64a19;
+        }
+
+        .button.equal {
+            background-color: #8bc34a;
+        }
+
+        .button.equal:hover {
+            background-color: #689f38;
+        }
+
+        .button.operator {
+            background-color: #ff9800;
+        }
+
+        .button.operator:hover {
+            background-color: #f57c00;
+        }
+    </style>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" class="display" disabled>
+        <div class="buttons">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="appendOperation('/')">/</button>
+            <button class="button operator" onclick="appendOperation('*')">*</button>
+            <button class="button operator" onclick="appendOperation('-')">-</button>
+
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperation('+')">+</button>
+
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button equal" onclick="calculate()">=</button>
+
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
+        </div>
+    </div>
+</body>
+</html>
